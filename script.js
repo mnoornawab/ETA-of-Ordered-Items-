@@ -1,10 +1,49 @@
+let excelData = [];
+
+function loadExcelData(forceReload = false) {
+    let fileUrl = 'KEYE_Pending_Orders_Report_SIMA.xlsx';
+    if (forceReload) {
+        fileUrl += '?t=' + new Date().getTime();
+    }
+    fetch(fileUrl)
+        .then(response => {
+            if (!response.ok) throw new Error('Network response was not ok');
+            return response.arrayBuffer();
+        })
+        .then(data => {
+            const workbook = XLSX.read(data, { type: 'array' });
+            const sheetName = workbook.SheetNames[0];
+            const worksheet = workbook.Sheets[sheetName];
+            excelData = XLSX.utils.sheet_to_json(worksheet);
+            document.getElementById('results').innerHTML = '<p style="color:green;">Excel data loaded. Enter a style code to search.</p>';
+            console.log('Excel data loaded:', excelData);
+        })
+        .catch(err => {
+            document.getElementById('results').innerHTML = '<p style="color:red;">Failed to load Excel file: ' + err + '</p>';
+            console.error('Excel load error:', err);
+        });
+}
+
+window.onload = function() {
+    loadExcelData();
+};
+
+document.addEventListener('DOMContentLoaded', function(){
+    document.getElementById('searchBtn').addEventListener('click', function() {
+        const styleCode = document.getElementById('styleCodeInput').value.trim();
+        displayResults(styleCode);
+    });
+    document.getElementById('reloadBtn').addEventListener('click', function() {
+        loadExcelData(true);
+    });
+});
+
 function excelDateToJSDate(serial) {
     if (!serial) return "";
     // Excel dates are days since 1900-01-00 (with bug)
     const utc_days = Math.floor(serial - 25569);
     const utc_value = utc_days * 86400; // seconds
     const date_info = new Date(utc_value * 1000);
-    // Adjust for Excel leap year bug if necessary
     return date_info.toISOString().slice(0,10); // yyyy-mm-dd
 }
 
