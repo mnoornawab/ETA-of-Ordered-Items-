@@ -17,6 +17,8 @@ function loadExcelData(forceReload = false) {
             excelData = XLSX.utils.sheet_to_json(worksheet);
             document.getElementById('results').innerHTML = '<p style="color:green;">Excel data loaded. Enter a style code to search.</p>';
             console.log('Excel data loaded:', excelData);
+            // Uncomment next line to see column names
+            // console.log('Loaded columns:', Object.keys(excelData[0]));
         })
         .catch(err => {
             document.getElementById('results').innerHTML = '<p style="color:red;">Failed to load Excel file: ' + err + '</p>';
@@ -24,26 +26,30 @@ function loadExcelData(forceReload = false) {
         });
 }
 
-window.onload = function() {
-    loadExcelData();
-};
-
+// Only attach listeners after DOM is ready
 document.addEventListener('DOMContentLoaded', function(){
+    loadExcelData(); // Initial load
+
     document.getElementById('searchBtn').addEventListener('click', function() {
         const styleCode = document.getElementById('styleCodeInput').value.trim();
         displayResults(styleCode);
     });
-    document.getElementById('reloadBtn').addEventListener('click', function() {
-        loadExcelData(true);
-    });
+    const reloadBtn = document.getElementById('reloadBtn');
+    if (reloadBtn) {
+        reloadBtn.addEventListener('click', function() {
+            loadExcelData(true);
+        });
+    }
 });
 
 function excelDateToJSDate(serial) {
-    if (!serial) return "";
-    // Excel dates are days since 1900-01-00 (with bug)
+    // Only try to convert if serial is a positive number
+    if (!serial || isNaN(serial) || Number(serial) <= 0) return "";
     const utc_days = Math.floor(serial - 25569);
-    const utc_value = utc_days * 86400; // seconds
+    if (utc_days < 0) return "";
+    const utc_value = utc_days * 86400;
     const date_info = new Date(utc_value * 1000);
+    if (isNaN(date_info.getTime())) return "";
     return date_info.toISOString().slice(0,10); // yyyy-mm-dd
 }
 
