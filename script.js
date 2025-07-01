@@ -39,6 +39,28 @@ document.addEventListener('DOMContentLoaded', function(){
     }
 });
 
+// Robust date formatter: handles Excel serials and date strings
+function formatExcelDate(value) {
+    // If value is a number or numeric string, likely an Excel serial
+    if (!isNaN(value) && value !== "" && value !== null) {
+        const serial = Number(value);
+        if (serial > 25569 && serial < 60000) { // Reasonable Excel serial range
+            const utc_days = serial - 25569;
+            const utc_value = utc_days * 86400; // seconds
+            const date_info = new Date(utc_value * 1000);
+            if (!isNaN(date_info.getTime())) {
+                // Format as MM/DD/YY
+                return `${date_info.getMonth()+1}/${date_info.getDate()}/${String(date_info.getFullYear()).slice(-2)}`;
+            }
+        }
+    }
+    // If it's already a string that looks like a date, just return it as is
+    if (typeof value === "string" && /\d{1,2}[\/\-]\d{1,2}[\/\-]\d{2,4}/.test(value)) {
+        return value;
+    }
+    return value || "";
+}
+
 function displayResults(styleCode) {
     if (!excelData.length) {
         document.getElementById('results').innerHTML = '<p>Data not loaded yet. Wait a few seconds and try again.</p>';
@@ -68,45 +90,38 @@ function displayResults(styleCode) {
         return;
     }
 
-    let html = '';
+    // Build a table for multiple orders
+    let html = `
+    <table class="results-table">
+        <thead>
+            <tr>
+                <th>PO Reference</th>
+                <th>Pending Order Qty</th>
+                <th>Under Packing Qty</th>
+                <th>Allocation Available Qty</th>
+                <th>Open Qty</th>
+                <th>First Allocation Date</th>
+                <th>Confirmed Allocation Date</th>
+            </tr>
+        </thead>
+        <tbody>
+    `;
+
     filtered.forEach(row => {
         html += `
-        <div class="result-card">
-            <div class="qty-blocks">
-                <div class="qty-card">
-                    <div class="qty-label">Pending Order Qty</div>
-                    <div class="qty-value">${row[colPendingOrder] || ""}</div>
-                </div>
-                <div class="qty-card">
-                    <div class="qty-label">Under Packing Qty</div>
-                    <div class="qty-value">${row[colUnderPacking] || ""}</div>
-                </div>
-                <div class="qty-card">
-                    <div class="qty-label">Allocation Available Qty</div>
-                    <div class="qty-value">${row[colAllocAvail] || ""}</div>
-                </div>
-                <div class="qty-card">
-                    <div class="qty-label">Open Qty</div>
-                    <div class="qty-value">${row[colOpenQty] || ""}</div>
-                </div>
-            </div>
-            <div class="dates-block">
-                <div class="date-card">
-                    <span class="date-label">First Allocation Date:</span>
-                    <span class="date-value">${row[colFirstAllocDate] || ""}</span>
-                </div>
-                <div class="date-card">
-                    <span class="date-label">Confirmed Allocation Date:</span>
-                    <span class="date-value">${row[colConfirmedAllocDate] || ""}</span>
-                </div>
-            </div>
-            <div class="po-block">
-                <span class="po-label">PO Reference:</span>
-                <span class="po-value">${row[colPORef] || ""}</span>
-            </div>
-        </div>
+            <tr>
+                <td>${row[colPORef] || ""}</td>
+                <td>${row[colPendingOrder] || ""}</td>
+                <td>${row[colUnderPacking] || ""}</td>
+                <td>${row[colAllocAvail] || ""}</td>
+                <td>${row[colOpenQty] || ""}</td>
+                <td>${formatExcelDate(row[colFirstAllocDate])}</td>
+                <td>${formatExcelDate(row[colConfirmedAllocDate])}</td>
+            </tr>
         `;
     });
+
+    html += "</tbody></table>";
 
     document.getElementById('results').innerHTML = html;
 }
