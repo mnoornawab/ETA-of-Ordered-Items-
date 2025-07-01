@@ -1,22 +1,20 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1.0" />
-  <title>ETA of Ordered Items</title>
-  <link rel="stylesheet" href="style.css" />
+    <meta charset="UTF-8">
+    <title>ETA of Ordered Items</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- SheetJS CDN -->
+    <script src="https://cdn.sheetjs.com/xlsx-latest/package/dist/xlsx.full.min.js"></script>
 </head>
 <body>
-  <h1>ETA of Ordered Items</h1>
-  <button id="loadFileBtn">Load Latest Orders Report</button>
-  <div id="querySection" style="display:none;">
-    <input type="text" id="queryInput" placeholder="Enter order code, item, etc."/>
-    <button id="searchBtn">Search</button>
-  </div>
-  <div id="result"></div>
-
-  <!-- SheetJS CDN -->
-  <script src="https://cdn.sheetjs.com/xlsx-latest/package/dist/xlsx.full.min.js"></script>
-  <script src="script.js"></script>
+    <h1>ETA of Ordered Items</h1>
+    <div>
+        <label for="styleCodeInput">Enter Style Code:</label>
+        <input type="text" id="styleCodeInput" placeholder="Enter style code">
+        <button id="searchBtn">Search</button>
+    </div>
+    <div id="results"></div>
+    <script src="script.js"></script>
 </body>
 </html>
