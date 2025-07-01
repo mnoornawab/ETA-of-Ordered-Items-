@@ -58,45 +58,101 @@ button:hover {
 #results {
     max-width: 900px;
     margin: 0 auto 32px auto;
-    padding: 18px;
-    background: #fff;
-    border-radius: 8px;
-    box-shadow: 0 2px 16px 0 rgba(80, 91, 109, 0.08);
+    padding: 0;
+    background: transparent;
     min-height: 40px;
 }
 
-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 16px;
-    background: #fafbfc;
+.result-card {
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 2px 16px 0 rgba(80, 91, 109, 0.10);
+    margin: 24px auto;
+    padding: 24px 20px 18px 20px;
+    max-width: 580px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
 }
 
-th, td {
-    padding: 10px 8px;
-    text-align: left;
-    border-bottom: 1px solid #e1e4e8;
+.qty-blocks {
+    display: flex;
+    gap: 14px;
+    justify-content: space-between;
+    flex-wrap: wrap;
 }
 
-th {
+.qty-card {
     background: #eaf3fb;
+    border-radius: 8px;
+    flex: 1 1 120px;
+    padding: 16px 10px 12px 10px;
+    text-align: center;
+    min-width: 120px;
+    margin: 2px;
+    box-shadow: 0 1px 4px 0 rgba(80, 91, 109, 0.07);
+}
+
+.qty-label {
+    font-size: 0.95rem;
+    color: #345ea6;
+    margin-bottom: 6px;
+    font-weight: 500;
+}
+
+.qty-value {
+    font-size: 1.35rem;
     color: #2d3a4b;
-    font-weight: bold;
+    font-weight: 700;
+    margin-top: 2px;
 }
 
-tr:last-child td {
-    border-bottom: none;
+.dates-block {
+    display: flex;
+    gap: 24px;
+    justify-content: flex-start;
+    flex-wrap: wrap;
 }
 
-@media (max-width: 600px) {
-    .search-container {
+.date-card {
+    padding: 8px 0 0 0;
+}
+
+.date-label {
+    color: #467fcf;
+    font-weight: 500;
+    font-size: 1rem;
+}
+
+.date-value {
+    color: #2d3a4b;
+    font-size: 1.08rem;
+    margin-left: 6px;
+}
+
+.po-block {
+    background: #f7f9fb;
+    border-radius: 6px;
+    padding: 10px 12px;
+    margin-top: 10px;
+    font-size: 1rem;
+    font-weight: 500;
+    color: #444;
+}
+
+.po-label {
+    color: #345ea6;
+    font-weight: 600;
+    margin-right: 8px;
+}
+
+@media (max-width: 700px) {
+    .result-card {
+        max-width: 98vw;
+        padding: 13px 2vw;
+    }
+    .qty-blocks, .dates-block {
         flex-direction: column;
-        gap: 8px;
-    }
-    #results {
-        padding: 8px;
-    }
-    table, th, td {
-        font-size: 0.95rem;
+        gap: 10px;
     }
 }
