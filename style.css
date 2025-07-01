@@ -169,3 +169,27 @@ button:hover {
     margin-right: auto;
     box-shadow: 0 2px 8px rgba(217,83,79,0.12);
 }
+.results-table {
+    width: 100%;
+    max-width: 900px;
+    margin: 30px auto;
+    border-collapse: collapse;
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.05);
+    font-size: 1rem;
+    overflow: hidden;
+}
+.results-table th, .results-table td {
+    padding: 12px 10px;
+    text-align: left;
+    border-bottom: 1px solid #eee;
+}
+.results-table th {
+    background: #007bff;
+    color: #fff;
+    font-weight: bold;
+}
+.results-table tr:last-child td {
+    border-bottom: none;
+}
