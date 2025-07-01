@@ -4,14 +4,14 @@
     <meta charset="UTF-8">
     <title>ETA of Ordered Items</title>
     <link rel="stylesheet" href="style.css">
-    <!-- SheetJS CDN -->
+    <!-- SheetJS library for reading Excel files -->
     <script src="https://cdn.sheetjs.com/xlsx-latest/package/dist/xlsx.full.min.js"></script>
 </head>
 <body>
     <h1>ETA of Ordered Items</h1>
-    <div>
+    <div class="search-container">
         <label for="styleCodeInput">Enter Style Code:</label>
-        <input type="text" id="styleCodeInput" placeholder="Enter style code">
+        <input type="text" id="styleCodeInput" placeholder="e.g. STYLE123">
         <button id="searchBtn">Search</button>
     </div>
     <div id="results"></div>
