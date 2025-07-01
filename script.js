@@ -17,8 +17,6 @@ function loadExcelData(forceReload = false) {
             excelData = XLSX.utils.sheet_to_json(worksheet);
             document.getElementById('results').innerHTML = '<p style="color:green;">Excel data loaded. Enter a style code to search.</p>';
             console.log('Excel data loaded:', excelData);
-            // Uncomment to debug column names:
-            // console.log('Loaded columns:', Object.keys(excelData[0]));
         })
         .catch(err => {
             document.getElementById('results').innerHTML = '<p style="color:red;">Failed to load Excel file: ' + err + '</p>';
@@ -26,7 +24,6 @@ function loadExcelData(forceReload = false) {
         });
 }
 
-// Only attach listeners after DOM is ready
 document.addEventListener('DOMContentLoaded', function(){
     loadExcelData(); // Initial load
 
@@ -67,7 +64,7 @@ function displayResults(styleCode) {
     );
 
     if (filtered.length === 0) {
-        document.getElementById('results').innerHTML = '<p>No results found for this style code.</p>';
+        document.getElementById('results').innerHTML = '<div class="error-message">Item not on order</div>';
         return;
     }
 
