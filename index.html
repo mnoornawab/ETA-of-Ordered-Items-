@@ -4,8 +4,6 @@
     <meta charset="UTF-8">
     <title>ETA of Ordered Items</title>
     <link rel="stylesheet" href="style.css">
-    <!-- SheetJS library for reading Excel files -->
-    <script src="https://cdn.sheetjs.com/xlsx-latest/package/dist/xlsx.full.min.js"></script>
 </head>
 <body>
     <h1>ETA of Ordered Items</h1>
@@ -15,7 +13,18 @@
         <button id="searchBtn">Search</button>
         <button id="reloadBtn" style="margin-left:10px;">Reload Excel Data</button>
     </div>
-    <div id="results"></div>
-    <script src="script.js"></script>
+    <div id="results">
+        <div class="result-card">
+            <div class="qty-blocks">
+                <div class="qty-card"><div class="qty-label">Ordered</div><div class="qty-value">100</div></div>
+                <div class="qty-card"><div class="qty-label">Shipped</div><div class="qty-value">60</div></div>
+                <div class="qty-card"><div class="qty-label">Remaining</div><div class="qty-value">40</div></div>
+            </div>
+            <div class="dates-block">
+                <div class="date-card"><span class="date-label">PO Date:</span> <span class="date-value">2024-05-01</span></div>
+                <div class="date-card"><span class="date-label">ETA:</span> <span class="date-value">2024-07-12</span></div>
+            </div>
+        </div>
+    </div>
 </body>
 </html>
