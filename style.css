@@ -18,6 +18,7 @@ h1 {
     align-items: center;
     gap: 12px;
     margin-bottom: 32px;
+    flex-wrap: wrap;
 }
 
 label {
@@ -146,16 +147,48 @@ button:hover {
     margin-right: 8px;
 }
 
-@media (max-width: 700px) {
+@media (max-width: 850px) {
     .result-card {
-        max-width: 98vw;
+        max-width: 99vw;
         padding: 13px 2vw;
+    }
+    #results,
+    .results-table {
+        max-width: 99vw;
     }
     .qty-blocks, .dates-block {
         flex-direction: column;
         gap: 10px;
     }
+    .search-container {
+        flex-direction: column;
+        gap: 10px;
+    }
 }
+
+@media (max-width: 500px) {
+    h1 {
+        font-size: 1.25rem;
+        margin-top: 18px;
+        margin-bottom: 16px;
+    }
+    .result-card {
+        padding: 7vw 2vw;
+        font-size: 0.98rem;
+    }
+    .qty-card {
+        min-width: 90px;
+        font-size: 0.96rem;
+    }
+    .results-table th, .results-table td {
+        padding: 8px 5px;
+        font-size: 0.96rem;
+    }
+    .dates-block, .qty-blocks {
+        gap: 7px;
+    }
+}
+
 .error-message {
     color: #fff;
     background: #d9534f;
@@ -169,6 +202,7 @@ button:hover {
     margin-right: auto;
     box-shadow: 0 2px 8px rgba(217,83,79,0.12);
 }
+
 .results-table {
     width: 100%;
     max-width: 900px;
