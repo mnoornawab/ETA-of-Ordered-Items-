@@ -131,6 +131,22 @@ button:hover {
     margin-left: 6px;
 }
 
+.po-block {
+    background: #f7f9fb;
+    border-radius: 6px;
+    padding: 10px 12px;
+    margin-top: 10px;
+    font-size: 1rem;
+    font-weight: 500;
+    color: #444;
+}
+
+.po-label {
+    color: #345ea6;
+    font-weight: 600;
+    margin-right: 8px;
+}
+
 @media (max-width: 850px) {
     .result-card {
         max-width: 99vw;
@@ -166,4 +182,43 @@ button:hover {
     .dates-block, .qty-blocks {
         gap: 7px;
     }
+}
+
+.error-message {
+    color: #fff;
+    background: #d9534f;
+    padding: 16px;
+    border-radius: 8px;
+    text-align: center;
+    font-weight: bold;
+    margin-top: 20px;
+    max-width: 400px;
+    margin-left: auto;
+    margin-right: auto;
+    box-shadow: 0 2px 8px rgba(217,83,79,0.12);
+}
+
+.results-table {
+    width: 100%;
+    max-width: 900px;
+    margin: 30px auto;
+    border-collapse: collapse;
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.05);
+    font-size: 1rem;
+    overflow: hidden;
+}
+.results-table th, .results-table td {
+    padding: 12px 10px;
+    text-align: left;
+    border-bottom: 1px solid #eee;
+}
+.results-table th {
+    background: #007bff;
+    color: #fff;
+    font-weight: bold;
+}
+.results-table tr:last-child td {
+    border-bottom: none;
 }
